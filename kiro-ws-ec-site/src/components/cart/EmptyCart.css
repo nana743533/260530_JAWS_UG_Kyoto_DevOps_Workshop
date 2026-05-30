@@ -1,0 +1,35 @@
+.empty-cart {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.empty-cart-icon {
+  font-size: 6rem;
+  margin-bottom: 1.5rem;
+}
+
+.empty-cart-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+}
+
+.empty-cart-message {
+  color: #6b7280;
+  margin: 0 0 2rem 0;
+  font-size: 1.125rem;
+}
+
+@media (max-width: 768px) {
+  .empty-cart {
+    padding: 3rem 1.5rem;
+  }
+  
+  .empty-cart-icon {
+    font-size: 4rem;
+  }
+}

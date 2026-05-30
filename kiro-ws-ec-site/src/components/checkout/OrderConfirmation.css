@@ -1,0 +1,136 @@
+.order-confirmation {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 0.75rem;
+  padding: 3rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.confirmation-icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+}
+
+.confirmation-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+}
+
+.confirmation-message {
+  color: #6b7280;
+  font-size: 1.125rem;
+  margin: 0 0 2rem 0;
+}
+
+.order-details {
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.order-detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.order-detail-row:last-child {
+  border-bottom: none;
+}
+
+.order-detail-label {
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.order-detail-value {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.order-total {
+  color: #3b82f6;
+  font-size: 1.25rem;
+}
+
+.shipping-info,
+.order-items {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.shipping-info p {
+  margin: 0.5rem 0;
+  color: #4b5563;
+}
+
+.confirmation-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.confirmation-item-image {
+  font-size: 2.5rem;
+}
+
+.confirmation-item-info {
+  flex: 1;
+}
+
+.confirmation-item-name {
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.25rem 0;
+}
+
+.confirmation-item-details {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.confirmation-item-total {
+  font-weight: 600;
+  color: #3b82f6;
+  font-size: 1.125rem;
+}
+
+@media (max-width: 768px) {
+  .order-confirmation {
+    padding: 2rem 1.5rem;
+  }
+  
+  .confirmation-icon {
+    font-size: 4rem;
+  }
+  
+  .confirmation-title {
+    font-size: 1.5rem;
+  }
+  
+  .confirmation-item {
+    flex-direction: column;
+    text-align: center;
+  }
+}
