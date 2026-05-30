@@ -1,0 +1,16 @@
+{
+  "name": "jaws-ug-kyoto-devops-workshop",
+  "version": "1.0.0",
+  "main": "bin/cdk-app.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.9.0",
+    "aws-cdk-lib": "^2.0.0",
+    "constructs": "^10.0.0"
+  }
+}
