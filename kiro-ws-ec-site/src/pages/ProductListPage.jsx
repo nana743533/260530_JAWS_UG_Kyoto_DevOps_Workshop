@@ -33,7 +33,7 @@ export const ProductListPage = () => {
         />
       )}
       
-      <h1 className="page-title">商品一覧</h1>
+      <h1 className="page-title">商品一覧ですよ＾＾</h1>
       
       <ProductGrid
         products={products}
