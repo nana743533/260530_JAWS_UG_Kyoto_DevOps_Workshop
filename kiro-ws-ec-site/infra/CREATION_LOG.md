@@ -138,3 +138,132 @@ infra/
 - CodePipeline V2、Full Clone
 - CodeBuild: runtime-versions で nodejs: 20 を明示
 - IAM: 対象バケットとディストリビューションに絞った最小権限
+
+---
+
+# ユニットテスト導入ログ (Claude Code)
+
+Vitest を導入し、優先度の高いテスト（pricing.js / CartContext）を作成した記録です。
+
+---
+
+## 1. Vitest および関連ライブラリのインストール
+
+```bash
+cd kiro-ws-ec-site
+npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
+```
+
+```
+# 結果: added 83 packages（正常終了）
+```
+
+## 2. package.json にテストスクリプト追加
+
+```bash
+# 変更: Edit ツールで既存ファイルを編集
+# 追加内容:
+#   "test": "vitest",
+#   "test:run": "vitest run"
+```
+
+## 3. vite.config.js にテスト設定追加
+
+```bash
+# 変更: Edit ツールで既存ファイルを編集
+# 追加内容:
+#   test: {
+#     environment: 'jsdom',
+#     globals: true,
+#     setupFiles: './tests/setup.js',
+#   }
+```
+
+## 4. テストセットアップファイル作成
+
+### `tests/setup.js`
+
+```bash
+# 作成: Write ツールで新規作成
+# 内容: @testing-library/jest-dom/vitest をインポート
+```
+
+## 5. テストファイル作成
+
+### `tests/unit/pricing.test.js` — 価格計算ロジック（最優先）
+
+```bash
+# 作成: Write ツールで新規作成
+# テスト内容:
+#   - calculateTax: 端数なし、端数あり（切り捨て期待）、0円、大きい金額
+#   - calculateShipping: 閾値境界値（4999/5000/5001円）、0円
+#   - calculateTotal: 送料無料域/有料域の組み合わせ
+# テスト数: 15
+```
+
+### `tests/unit/cart-reducer.test.jsx` — カート状態管理（最優先）
+
+```bash
+# 作成: Write ツールで新規作成
+# テスト内容:
+#   - addToCart: 新規追加、同一商品の数量加算、異なる商品追加、デフォルト数量
+#   - removeFromCart: 正常削除、存在しないID
+#   - updateQuantity: 数量変更、0で削除、負数で削除
+#   - clearCart: 全件削除
+#   - cartCount: 数量合計、空カート
+#   - cartTotal: 金額合計、空カート、数量更新後の再計算
+# テスト数: 15
+```
+
+## 6. テスト実行
+
+```bash
+npm run test:run
+```
+
+```
+# 結果:
+#   tests/unit/pricing.test.js      — 15 tests | 12 passed | 3 failed
+#   tests/unit/cart-reducer.test.jsx — 15 tests | 15 passed | 0 failed
+#   合計: 30 tests | 27 passed | 3 failed
+```
+
+## 7. 検出されたバグ
+
+### `calculateTax` が `Math.ceil`（切り上げ）を使用している
+
+| 入力 | 期待値 (Math.floor) | 実際の値 (Math.ceil) | 差額 |
+|------|---------------------|---------------------|------|
+| 999円 | 99円 | 100円 | +1円 |
+| 101円 | 10円 | 11円 | +1円 |
+| 1円 | 0円 | 1円 | +1円 |
+
+ソースコード内のコメントにも「バグ」と記載されており、テストで再現を確認。
+ユーザー指示により修正は行わず、テスト失敗として記録に残す。
+
+## 8. 最終ファイル構成
+
+```
+tests/
+├── setup.js
+└── unit/
+    ├── pricing.test.js
+    └── cart-reducer.test.jsx
+```
+
+## 使用したツール
+
+| ステップ | Claude Code ツール | 目的 |
+|---------|-------------------|------|
+| ライブラリインストール | Bash (`npm install -D`) | vitest, testing-library 等の導入 |
+| スクリプト追加 | Edit | package.json に test/test:run 追加 |
+| Vite 設定変更 | Edit | vite.config.js にテスト環境設定追加 |
+| ディレクトリ作成 | Bash (`mkdir -p`) | tests/unit/ の作成 |
+| ファイル作成 x3 | Write | setup.js, pricing.test.js, cart-reducer.test.jsx |
+| テスト実行 | Bash (`npm run test:run`) | テストの実行と結果確認 |
+
+## 指示内容（ユーザーからの要件）
+
+- Vitest を導入し、優先度の高いもの（pricing.js, CartContext）のユニットテストを書く
+- package.json に test スクリプトを追加
+- バグを見つけても修正しない（テスト失敗として記録に残す）
